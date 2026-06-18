@@ -20,7 +20,7 @@ function AdminDashboard() {
 
             const response =
                 await fetch(
-                    "${API_BASE}/admin/create-authenticator",
+                    `${API_BASE}/admin/create-authenticator",
                     {
                         method: "POST",
 
@@ -64,7 +64,7 @@ function AdminDashboard() {
 
         const response =
             await fetch(
-                "${API_BASE}/admin/all-authenticators",
+                `${API_BASE}/admin/all-authenticators",
                 {
                     headers: {
                         Authorization:
@@ -87,7 +87,7 @@ function AdminDashboard() {
 
         const response =
             await fetch(
-                "${API_BASE}/admin/all-users",
+                `${API_BASE}/admin/all-users",
                 {
                     headers: {
                         Authorization:
@@ -110,7 +110,7 @@ function AdminDashboard() {
 
         const response =
             await fetch(
-                "${API_BASE}/admin/authentication-logs",
+                `${API_BASE}/admin/authentication-logs",
                 {
                     headers: {
                         Authorization:
@@ -167,7 +167,7 @@ function AdminDashboard() {
 
         const response =
             await fetch(
-                "${API_BASE}/admin/rotate-key",
+                `${API_BASE}/admin/rotate-key",
                 {
                     method: "POST",
 

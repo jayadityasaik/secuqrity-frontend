@@ -9,7 +9,7 @@ function UserOTP() {
         try {
 
             const response = await fetch(
-                "${API_BASE}/user/verify-otp",
+                `${API_BASE}/user/verify-otp",
                 {
                     method: "POST",
 

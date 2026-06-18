@@ -25,7 +25,7 @@ function AuthenticatorLogin() {
 
             const response =
                 await fetch(
-                    "${API_BASE}/authenticator/login",
+                    `${API_BASE}/authenticator/login",
                     {
                         method: "POST",
 

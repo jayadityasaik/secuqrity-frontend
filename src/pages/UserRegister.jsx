@@ -23,7 +23,7 @@ function UserRegister() {
 
             const response =
                 await fetch(
-                    "${API_BASE}/user/register",
+                    `${API_BASE}/user/register",
                     {
                         method: "POST",
 

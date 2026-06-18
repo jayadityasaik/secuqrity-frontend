@@ -14,7 +14,7 @@ function AuthenticatorOTP() {
                 );
 
             const response = await fetch(
-                "${API_BASE}/authenticator/verify-login-otp",
+                `${API_BASE}/authenticator/verify-login-otp",
                 {
                     method: "POST",
 
