@@ -9,7 +9,7 @@ function AdminOTP() {
         try {
 
             const response = await fetch(
-                `${API_BASE}/admin/verify-login-otp",
+                `${API_BASE}/admin/verify-login-otp`,
                 {
                     method: "POST",
                     headers: {
@@ -77,3 +77,4 @@ function AdminOTP() {
 }
 
 export default AdminOTP;
+

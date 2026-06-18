@@ -24,7 +24,7 @@ function AdminLogin() {
             setLoading(true);
 
             const response = await fetch(
-                `${API_BASE}/admin/login",
+                `${API_BASE}/admin/login`,
                 {
                     method: "POST",
 
@@ -158,3 +158,4 @@ function AdminLogin() {
 }
 
 export default AdminLogin;
+

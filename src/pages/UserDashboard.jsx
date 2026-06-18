@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { generateQR } from "../services/qrService";
 import API_BASE from "../services/api";
+
 function UserDashboard() {
 
     const [qrData, setQrData] =

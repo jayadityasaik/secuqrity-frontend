@@ -17,7 +17,7 @@ function AuthenticatorDashboard() {
 
             const response =
                 await fetch(
-                    `${API_BASE}/authenticator/enroll-user",
+                    `${API_BASE}/authenticator/enroll-user`,
                     {
                         method: "POST",
 
@@ -128,3 +128,4 @@ function AuthenticatorDashboard() {
     ...
 </div>
 export default AuthenticatorDashboard;
+

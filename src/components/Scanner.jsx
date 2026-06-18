@@ -31,7 +31,7 @@ function Scanner() {
                 try {
 
                     const response = await fetch(
-                        `${API_BASE}/verification/verify-qr",
+                        `${API_BASE}/verification/verify-qr`,
                         {
                             method: "POST",
 
@@ -107,3 +107,4 @@ function Scanner() {
 }
 
 export default Scanner;
+

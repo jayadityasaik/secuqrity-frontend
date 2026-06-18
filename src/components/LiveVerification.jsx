@@ -54,7 +54,7 @@ function LiveVerification() {
 
             const response =
                 await fetch(
-                    `${API_BASE}/verification/verify",
+                    `${API_BASE}/verification/verify`,
                     {
                         method: "POST",
 
@@ -154,3 +154,4 @@ function LiveVerification() {
 }
 
 export default LiveVerification;
+

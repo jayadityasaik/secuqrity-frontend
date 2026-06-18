@@ -1,5 +1,6 @@
 import { useState } from "react";
 import API_BASE from "../services/api";
+
 function UserOTP() {
 
     const [otp, setOtp] = useState("");
@@ -9,7 +10,7 @@ function UserOTP() {
         try {
 
             const response = await fetch(
-                `${API_BASE}/user/verify-otp",
+                `${API_BASE}/user/verify-otp`,
                 {
                     method: "POST",
 
@@ -32,7 +33,18 @@ function UserOTP() {
             const result =
                 await response.json();
 
-            window.location.href = "/dashboard";
+            if (response.ok) {
+
+                window.location.href =
+                    "/dashboard";
+
+            } else {
+
+                alert(
+                    result.detail ||
+                    "Invalid OTP"
+                );
+            }
 
         } catch (error) {
 

@@ -25,7 +25,7 @@ function AuthenticatorLogin() {
 
             const response =
                 await fetch(
-                    `${API_BASE}/authenticator/login",
+                    `${API_BASE}/authenticator/login`,
                     {
                         method: "POST",
 
@@ -159,3 +159,4 @@ function AuthenticatorLogin() {
 }
 
 export default AuthenticatorLogin;
+
