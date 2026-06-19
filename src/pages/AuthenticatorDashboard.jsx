@@ -47,7 +47,6 @@ function AuthenticatorDashboard() {
 
             const xml =
                 await response.text();
-	    alert(xml.substring(0, 500));
             const match =
 		xml.match(
 		    /<Data[^>]*>(.*?)<\/Data>/s
@@ -112,7 +111,6 @@ function AuthenticatorDashboard() {
 
             const xml =
                 await response.text();
-	    alert(xml.substring(0, 500));
             const match =
     		xml.match(
         	    /<Data[^>]*>(.*?)<\/Data>/s
