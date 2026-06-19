@@ -9,68 +9,22 @@ function AuthenticatorDashboard() {
 
     const [rightThumb, setRightThumb] =
         useState("");
-
     const [leftThumb, setLeftThumb] =
-        useState("");
+    useState("");
 
     async function captureRightThumb() {
 
     try {
 
         const response =
-    await fetch(
-        "http://127.0.0.1:5001/capture"
-    );
-
-const result =
-    await response.json();
-
-if (!result.success) {
-
-    alert(
-        "Fingerprint capture failed"
-    );
-
-    return;
-}
-
-setRightThumb(
-    result.fingerprint
-);
-
-alert(
-    "Right thumb captured"
-);
-
-        const xml =
-            await response.text();
-
-        const errorMatch =
-            xml.match(
-                /errCode="(\d+)"/
+            await fetch(
+                "http://127.0.0.1:5001/capture"
             );
 
-        if (
-            !errorMatch ||
-            errorMatch[1] !== "0"
-        ) {
+        const result =
+            await response.json();
 
-            alert(
-                "Fingerprint capture failed"
-            );
-
-            return;
-        }
-
-        const match =
-            xml.match(
-                /<Data[^>]*>(.*?)<\/Data>/s
-            );
-
-        if (
-            !match ||
-            match[1].length < 100
-        ) {
+        if (!result.success) {
 
             alert(
                 "Fingerprint capture failed"
@@ -80,17 +34,19 @@ alert(
         }
 
         setRightThumb(
-            match[1]
+            result.fingerprint
         );
 
         alert(
             "Right thumb captured"
         );
 
-    } catch {
+    } catch (error) {
+
+        console.log(error);
 
         alert(
-            "Morpho RD Service not running"
+            "Capture Server not running"
         );
     }
 }
@@ -100,59 +56,14 @@ alert(
     try {
 
         const response =
-    await fetch(
-        "http://127.0.0.1:5001/capture"
-    );
-
-const result =
-        await response.json();
-
-if (!result.success) {
-
-    alert(
-        "Fingerprint capture failed"
-    );
-
-    return;
-}
-
-setLeftThumb(
-    result.fingerprint
-);
-
-alert(
-    "Left thumb captured"
-);
-
-        const xml =
-            await response.text();
-
-        const errorMatch =
-            xml.match(
-                /errCode="(\d+)"/
+            await fetch(
+                "http://127.0.0.1:5001/capture"
             );
 
-        if (
-            !errorMatch ||
-            errorMatch[1] !== "0"
-        ) {
+        const result =
+            await response.json();
 
-            alert(
-                "Fingerprint capture failed"
-            );
-
-            return;
-        }
-
-        const match =
-            xml.match(
-                /<Data[^>]*>(.*?)<\/Data>/s
-            );
-
-        if (
-            !match ||
-            match[1].length < 100
-        ) {
+        if (!result.success) {
 
             alert(
                 "Fingerprint capture failed"
@@ -162,17 +73,19 @@ alert(
         }
 
         setLeftThumb(
-            match[1]
+            result.fingerprint
         );
 
         alert(
             "Left thumb captured"
         );
 
-    } catch {
+    } catch (error) {
+
+        console.log(error);
 
         alert(
-            "Morpho RD Service not running"
+            "Capture Server not running"
         );
     }
 }
