@@ -18,32 +18,29 @@ function AuthenticatorDashboard() {
     try {
 
         const response =
-            await fetch(
-                "https://127.0.0.1:11100/capture",
-                {
-                    method: "CAPTURE",
+    await fetch(
+        "http://127.0.0.1:5001/capture"
+    );
 
-                    headers: {
-                        "Content-Type":
-                            "text/xml"
-                    },
+const result =
+    await response.json();
 
-                    body:
-                        `<PidOptions ver='1.0'>
-                            <Opts
-                                fCount='1'
-                                fType='0'
-                                iCount='0'
-                                pCount='0'
-                                format='0'
-                                pidVer='2.0'
-                                timeout='10000'
-                                posh='UNKNOWN'
-                                env='P'
-                            />
-                         </PidOptions>`
-                }
-            );
+if (!result.success) {
+
+    alert(
+        "Fingerprint capture failed"
+    );
+
+    return;
+}
+
+setRightThumb(
+    result.fingerprint
+);
+
+alert(
+    "Right thumb captured"
+);
 
         const xml =
             await response.text();
@@ -103,32 +100,29 @@ function AuthenticatorDashboard() {
     try {
 
         const response =
-            await fetch(
-                "https://127.0.0.1:11100/capture",
-                {
-                    method: "CAPTURE",
+    await fetch(
+        "http://127.0.0.1:5001/capture"
+    );
 
-                    headers: {
-                        "Content-Type":
-                            "text/xml"
-                    },
+const result =
+        await response.json();
 
-                    body:
-                        `<PidOptions ver='1.0'>
-                            <Opts
-                                fCount='1'
-                                fType='0'
-                                iCount='0'
-                                pCount='0'
-                                format='0'
-                                pidVer='2.0'
-                                timeout='10000'
-                                posh='UNKNOWN'
-                                env='P'
-                            />
-                         </PidOptions>`
-                }
-            );
+if (!result.success) {
+
+    alert(
+        "Fingerprint capture failed"
+    );
+
+    return;
+}
+
+setLeftThumb(
+    result.fingerprint
+);
+
+alert(
+    "Left thumb captured"
+);
 
         const xml =
             await response.text();
