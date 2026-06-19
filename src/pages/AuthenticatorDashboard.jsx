@@ -15,130 +15,173 @@ function AuthenticatorDashboard() {
 
     async function captureRightThumb() {
 
-        try {
+    try {
 
-            const response =
-                await fetch(
-                    "https://127.0.0.1:11100/capture",
-                    {
-                        method: "CAPTURE",
+        const response =
+            await fetch(
+                "https://127.0.0.1:11100/capture",
+                {
+                    method: "CAPTURE",
 
-                        headers: {
-                            "Content-Type":
-                                "text/xml"
-                        },
+                    headers: {
+                        "Content-Type":
+                            "text/xml"
+                    },
 
-                        body:
-                            `<PidOptions ver='1.0'>
-                                <Opts
-                                    fCount='1'
-                                    fType='0'
-                                    iCount='0'
-                                    pCount='0'
-                                    format='0'
-                                    pidVer='2.0'
-                                    timeout='10000'
-                                    posh='UNKNOWN'
-                                    env='P'
-                                />
-                             </PidOptions>`
-                    }
-                );
-
-            const xml =
-                await response.text();
-            const match =
-		xml.match(
-		    /<Data[^>]*>(.*?)<\/Data>/s
-		);
-            
-            if (!match) {
-
-                alert(
-                    "Right thumb capture failed"
-                );
-
-                return;
-            }
-
-            setRightThumb(
-                match[1]
+                    body:
+                        `<PidOptions ver='1.0'>
+                            <Opts
+                                fCount='1'
+                                fType='0'
+                                iCount='0'
+                                pCount='0'
+                                format='0'
+                                pidVer='2.0'
+                                timeout='10000'
+                                posh='UNKNOWN'
+                                env='P'
+                            />
+                         </PidOptions>`
+                }
             );
+
+        const xml =
+            await response.text();
+
+        const errorMatch =
+            xml.match(
+                /errCode="(\d+)"/
+            );
+
+        if (
+            !errorMatch ||
+            errorMatch[1] !== "0"
+        ) {
 
             alert(
-                "Right thumb captured"
+                "Fingerprint capture failed"
             );
 
-        } catch (error) {
-
-            alert(
-                "Morpho RD Service not running"
-            );
+            return;
         }
+
+        const match =
+            xml.match(
+                /<Data[^>]*>(.*?)<\/Data>/s
+            );
+
+        if (
+            !match ||
+            match[1].length < 100
+        ) {
+
+            alert(
+                "Fingerprint capture failed"
+            );
+
+            return;
+        }
+
+        setRightThumb(
+            match[1]
+        );
+
+        alert(
+            "Right thumb captured"
+        );
+
+    } catch {
+
+        alert(
+            "Morpho RD Service not running"
+        );
     }
+}
 
     async function captureLeftThumb() {
 
-        try {
+    try {
 
-            const response =
-                await fetch(
-                    "https://127.0.0.1:11100/capture",
-                    {
-                        method: "CAPTURE",
+        const response =
+            await fetch(
+                "https://127.0.0.1:11100/capture",
+                {
+                    method: "CAPTURE",
 
-                        headers: {
-                            "Content-Type":
-                                "text/xml"
-                        },
+                    headers: {
+                        "Content-Type":
+                            "text/xml"
+                    },
 
-                        body:
-                            `<PidOptions ver='1.0'>
-                                <Opts
-                                    fCount='1'
-                                    fType='0'
-                                    iCount='0'
-                                    pCount='0'
-                                    format='0'
-                                    pidVer='2.0'
-                                    timeout='10000'
-                                    posh='UNKNOWN'
-                                    env='P'
-                                />
-                             </PidOptions>`
-                    }
-                );
-
-            const xml =
-                await response.text();
-            const match =
-    		xml.match(
-        	    /<Data[^>]*>(.*?)<\/Data>/s
-    		);
-            if (!match) {
-
-                alert(
-                    "Left thumb capture failed"
-                );
-
-                return;
-            }
-
-            setLeftThumb(
-                match[1]
+                    body:
+                        `<PidOptions ver='1.0'>
+                            <Opts
+                                fCount='1'
+                                fType='0'
+                                iCount='0'
+                                pCount='0'
+                                format='0'
+                                pidVer='2.0'
+                                timeout='10000'
+                                posh='UNKNOWN'
+                                env='P'
+                            />
+                         </PidOptions>`
+                }
             );
+
+        const xml =
+            await response.text();
+
+        const errorMatch =
+            xml.match(
+                /errCode="(\d+)"/
+            );
+
+        if (
+            !errorMatch ||
+            errorMatch[1] !== "0"
+        ) {
 
             alert(
-                "Left thumb captured"
+                "Fingerprint capture failed"
             );
 
-        } catch {
-
-            alert(
-                "Morpho RD Service not running"
-            );
+            return;
         }
+
+        const match =
+            xml.match(
+                /<Data[^>]*>(.*?)<\/Data>/s
+            );
+
+        if (
+            !match ||
+            match[1].length < 100
+        ) {
+
+            alert(
+                "Fingerprint capture failed"
+            );
+
+            return;
+        }
+
+        setLeftThumb(
+            match[1]
+        );
+
+        alert(
+            "Left thumb captured"
+        );
+
+    } catch {
+
+        alert(
+            "Morpho RD Service not running"
+        );
     }
+}
 
     async function enrollUser() {
 
