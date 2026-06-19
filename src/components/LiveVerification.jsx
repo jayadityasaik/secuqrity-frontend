@@ -28,6 +28,14 @@ function LiveVerification() {
 
                 await scanner.clear();
 
+                console.log(
+                    "SCANNED QR:"
+                );
+
+                console.log(
+                    decodedText
+                );
+
                 setQrData(
                     decodedText
                 );
@@ -39,7 +47,9 @@ function LiveVerification() {
 
             (error) => {
 
-                console.log(error);
+                console.log(
+                    error
+                );
             }
         );
     }
@@ -127,7 +137,9 @@ function LiveVerification() {
 
         } catch (error) {
 
-            console.log(error);
+            console.log(
+                error
+            );
 
             setResult(
                 "Verification Failed"
