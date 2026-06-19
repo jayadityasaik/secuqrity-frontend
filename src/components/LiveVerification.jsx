@@ -38,6 +38,7 @@ function LiveVerification() {
             },
 
             (error) => {
+
                 console.log(error);
             }
         );
@@ -46,6 +47,32 @@ function LiveVerification() {
     async function verifyUser() {
 
         try {
+
+            if (!qrData) {
+
+                setResult(
+                    "Please scan a QR code first"
+                );
+
+                return;
+            }
+
+            const captureResponse =
+                await fetch(
+                    "http://127.0.0.1:5001/capture"
+                );
+
+            const captureData =
+                await captureResponse.json();
+
+            if (!captureData.success) {
+
+                setResult(
+                    "Fingerprint capture failed"
+                );
+
+                return;
+            }
 
             const token =
                 localStorage.getItem(
@@ -69,7 +96,10 @@ function LiveVerification() {
                         body: JSON.stringify({
 
                             encrypted_qr_data:
-                                qrData
+                                qrData,
+
+                            live_fingerprint:
+                                captureData.fingerprint
                         })
                     }
                 );
@@ -154,4 +184,3 @@ function LiveVerification() {
 }
 
 export default LiveVerification;
-
