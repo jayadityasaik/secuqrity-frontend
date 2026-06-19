@@ -1,10 +1,147 @@
 import { useState } from "react";
 import LiveVerification from "../components/LiveVerification";
 import API_BASE from "../services/api";
+
 function AuthenticatorDashboard() {
 
-    const [biometricToken,
-        setBiometricToken] = useState("");
+    const [biometricToken, setBiometricToken] =
+        useState("");
+
+    const [rightThumb, setRightThumb] =
+        useState("");
+
+    const [leftThumb, setLeftThumb] =
+        useState("");
+
+    async function captureRightThumb() {
+
+        try {
+
+            const response =
+                await fetch(
+                    "https://127.0.0.1:11100/capture",
+                    {
+                        method: "CAPTURE",
+
+                        headers: {
+                            "Content-Type":
+                                "text/xml"
+                        },
+
+                        body:
+                            `<PidOptions ver='1.0'>
+                                <Opts
+                                    fCount='1'
+                                    fType='0'
+                                    iCount='0'
+                                    pCount='0'
+                                    format='0'
+                                    pidVer='2.0'
+                                    timeout='10000'
+                                    posh='UNKNOWN'
+                                    env='P'
+                                />
+                             </PidOptions>`
+                    }
+                );
+
+            const xml =
+                await response.text();
+
+            const match =
+                xml.match(
+                    /<Data type="X">(.*?)<\/Data>/s
+                );
+
+            if (!match) {
+
+                alert(
+                    "Right thumb capture failed"
+                );
+
+                return;
+            }
+
+            setRightThumb(
+                match[1]
+            );
+
+            alert(
+                "Right thumb captured"
+            );
+
+        } catch (error) {
+
+            alert(
+                "Morpho RD Service not running"
+            );
+        }
+    }
+
+    async function captureLeftThumb() {
+
+        try {
+
+            const response =
+                await fetch(
+                    "https://127.0.0.1:11100/capture",
+                    {
+                        method: "CAPTURE",
+
+                        headers: {
+                            "Content-Type":
+                                "text/xml"
+                        },
+
+                        body:
+                            `<PidOptions ver='1.0'>
+                                <Opts
+                                    fCount='1'
+                                    fType='0'
+                                    iCount='0'
+                                    pCount='0'
+                                    format='0'
+                                    pidVer='2.0'
+                                    timeout='10000'
+                                    posh='UNKNOWN'
+                                    env='P'
+                                />
+                             </PidOptions>`
+                    }
+                );
+
+            const xml =
+                await response.text();
+
+            const match =
+                xml.match(
+                    /<Data type="X">(.*?)<\/Data>/s
+                );
+
+            if (!match) {
+
+                alert(
+                    "Left thumb capture failed"
+                );
+
+                return;
+            }
+
+            setLeftThumb(
+                match[1]
+            );
+
+            alert(
+                "Left thumb captured"
+            );
+
+        } catch {
+
+            alert(
+                "Morpho RD Service not running"
+            );
+        }
+    }
 
     async function enrollUser() {
 
@@ -30,8 +167,15 @@ function AuthenticatorDashboard() {
                         },
 
                         body: JSON.stringify({
+
                             biometric_token:
-                                biometricToken
+                                biometricToken,
+
+                            right_thumb:
+                                rightThumb,
+
+                            left_thumb:
+                                leftThumb
                         })
                     }
                 );
@@ -102,6 +246,27 @@ function AuthenticatorDashboard() {
                     <br />
 
                     <button
+                        className="btn btn-primary me-2"
+                        onClick={
+                            captureRightThumb
+                        }
+                    >
+                        Capture Right Thumb
+                    </button>
+
+                    <button
+                        className="btn btn-info"
+                        onClick={
+                            captureLeftThumb
+                        }
+                    >
+                        Capture Left Thumb
+                    </button>
+
+                    <br />
+                    <br />
+
+                    <button
                         className="btn btn-success"
                         onClick={enrollUser}
                     >
@@ -119,13 +284,5 @@ function AuthenticatorDashboard() {
         </div>
     );
 }
-<div className="dashboard-card">
 
-    <h1>
-        Authenticator Dashboard
-    </h1>
-
-    ...
-</div>
 export default AuthenticatorDashboard;
-
