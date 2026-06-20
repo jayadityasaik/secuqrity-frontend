@@ -1,25 +1,40 @@
 import { useState } from "react";
 import API_BASE from "../services/api";
+
 function UserRegister() {
 
-    const [fullName,
-        setFullName] = useState("");
+    const [fullName, setFullName] =
+        useState("");
 
-    const [email,
-        setEmail] = useState("");
+    const [email, setEmail] =
+        useState("");
 
-    const [dob,
-        setDob] = useState("");
+    const [dob, setDob] =
+        useState("");
 
-    const [password,
-        setPassword] = useState("");
+    const [password, setPassword] =
+        useState("");
 
-    const [showPassword,
-        setShowPassword] = useState(false);
+    const [showPassword, setShowPassword] =
+        useState(false);
 
     async function registerUser() {
 
         try {
+
+            if (
+                !fullName ||
+                !email ||
+                !dob ||
+                !password
+            ) {
+
+                alert(
+                    "Please fill all fields"
+                );
+
+                return;
+            }
 
             const response =
                 await fetch(
@@ -52,10 +67,30 @@ function UserRegister() {
             const data =
                 await response.json();
 
+            console.log(
+                "REGISTER RESPONSE:",
+                data
+            );
+
             if (response.ok) {
 
+                if (
+                    data.biometric_token
+                ) {
+
+                    localStorage.setItem(
+                        "biometric_token",
+                        data.biometric_token
+                    );
+                }
+
                 alert(
-                    "Registration Successful\n\nBiometric Token Sent To Email"
+                    `Registration Successful
+
+Biometric Token:
+${data.biometric_token || "Not Generated"}
+
+Please save this token carefully.`
                 );
 
                 window.location.href =
@@ -64,14 +99,17 @@ function UserRegister() {
             } else {
 
                 alert(
-                    data.detail
+                    data.detail ||
+                    "Registration Failed"
                 );
             }
 
         } catch (error) {
 
+            console.error(error);
+
             alert(
-                "Registration Failed"
+                "Registration Failed. Please try again."
             );
         }
     }
@@ -171,4 +209,3 @@ function UserRegister() {
 }
 
 export default UserRegister;
-
